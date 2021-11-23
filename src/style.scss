@@ -1,0 +1,19 @@
+html {
+  height: 100%;
+}
+body {
+  width: 100%;
+  background-color: #ecf0f1;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.editor-container {
+  margin: 2em;
+  position: relative;
+}
+
+#trix-toolbar button {
+  padding: 5px;
+}
