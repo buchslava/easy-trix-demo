@@ -1,5 +1,6 @@
 // @ts-ignore
 import Trix from 'trix';
+import { TagTide } from "tag-tide";
 
 function debounce(func: Function, timeout = 300) {
   let timer: any;
@@ -26,8 +27,16 @@ document.addEventListener('trix-initialize', function (event) {
   editor = document.querySelector('trix-editor');
 
   editor.addEventListener('trix-paste', (e: any) => {
+    const prettified = new TagTide(e.paste.html)
+      .startAfter("id", /^docs-internal-guid-.+/)
+      .textTable()
+      .flatten(["a", "img", "li"])
+      .removeAttributes({ a: ["href", "_target"], img: ["src", "alt"] })
+      .rootParagraphs()
+      .result();
+
     editor.editor.undo();
-    editor.editor.insertHTML(`<strong>${e.paste.html}</strong>`);
+    editor.editor.insertHTML(prettified);
   });
 
   editor.addEventListener('trix-change', (e: any) => {

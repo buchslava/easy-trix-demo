@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "tag-tide": "^0.1.4",
     "trix": "lazaronixon/trix#contentify"
   },
   "devDependencies": {
