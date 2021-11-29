@@ -4,18 +4,17 @@
 
   <body>
     <div class="editor-container">
-      <div id="trix-toolbar" class="toolbar">
+      <div id="trix-toolbar" class="toolbar trix-button">
         <button type="button" data-format="bold">Bold</button>
         <button type="button" data-format="italic">Italic</button>
         <button type="button" data-format="strike">Strike</button>
-        <button type="button" data-format="quote">Quote</button>
         <button type="button" data-format="bullet">Unordered List</button>
         <button type="button" data-format="number">Ordered List</button>
-        <button type="button" data-format="outdent">Outdent</button>
-        <button type="button" data-format="indent">Indent</button>
+        <button type="button" data-trix-attribute="red">Red</button>
+        <button type="button" data-trix-attribute="foo">Highlight</button>
       </div>
+      <trix-editor id="trix-editor" toolbar="trix-toolbar" style="height: 400px"></trix-editor>
       <div id="calc-container"></div>
-      <trix-editor toolbar="trix-toolbar"></trix-editor>
     </div>
   </body>
 
