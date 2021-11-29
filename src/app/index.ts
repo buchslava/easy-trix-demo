@@ -16,7 +16,7 @@ function debounce(func: Function, timeout = 300) {
 function calc() {
   const calcEl = document.getElementById('calc-container');
   if (calcEl) {
-    calcEl.innerHTML = `Words: ${editor.value.split(/\s+/).length}`;
+    calcEl.innerHTML = `Words: ${editor.value.split(/\s+/).length-1}`;
   }
 }
 
