@@ -29,13 +29,22 @@ function debounce(func: Function, timeout = 300) {
   };
 }
 
+function getCounts(paragraphs: string[]) {
+  // words
+  // characters
+  // sentences
+  //
+}
+
 document.addEventListener('trix-initialize', function (event) {
   const trix: any = document.getElementById('trix-editor');
 
   const debouncedCalc = debounce(() => {
     const calcEl = document.getElementById('calc-container');
     if (calcEl) {
-      calcEl.innerHTML = `Words: ${trix.value.split(/\s/).length - 1}`;
+      const paragraphs = new TagTide(trix.value).blocksToText();
+      calcEl.innerHTML = `Paragraphs: ${paragraphs.length}`;
+      getCounts(paragraphs);
     }
   }, 400);
 
@@ -65,7 +74,7 @@ document.addEventListener('trix-initialize', function (event) {
   // /toolbar events
   debouncedCalc();
 
-  trix.editor.insertHTML(`<p>Hello world</p>`);
+  trix.editor.insertHTML(`<p>Hello world! Again and again... That's all.</p>`);
   trix.addEventListener('trix-paste', (e: any) => {
     const prettified = new TagTide(e.paste.html)
       .startAfter('id', /^docs-internal-guid-.+/)
