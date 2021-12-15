@@ -28,6 +28,8 @@
         "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
+        "@typescript-eslint/ban-ts-ignore": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/dot-notation": "off",
         "@typescript-eslint/naming-convention": [
           "error",

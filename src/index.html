@@ -3,8 +3,7 @@
   <head></head>
 
   <body>
-    <div class="editor-container">
-      <div id="trix-toolbar" class="toolbar trix-button">
+      <div id="trix-toolbar" style="display: none;">
         <button type="button" data-format="bold">Bold</button>
         <button type="button" data-format="italic">Italic</button>
         <button type="button" data-format="strike">Strike</button>
@@ -13,9 +12,10 @@
         <button type="button" data-trix-attribute="red">Red</button>
         <button type="button" data-trix-attribute="foo">Highlight</button>
       </div>
-      <trix-editor id="trix-editor" toolbar="trix-toolbar" style="height: 400px"></trix-editor>
-      <div id="calc-container"></div>
-    </div>
+      <div style="display: flex; height: 100vh;">
+        <trix-editor id="trix-editor" toolbar="trix-toolbar" style="flex: 1;"></trix-editor>
+        <div id="calc-container" style="min-width: 150px;"></div>
+      </div>
   </body>
 
 </html>

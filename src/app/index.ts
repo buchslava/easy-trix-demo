@@ -29,11 +29,51 @@ function debounce(func: Function, timeout = 300) {
   };
 }
 
+function getSentences(text: string) {
+  const result = [];
+  let currentSentence = '';
+  for (let i = 0; i < text.length; i++) {
+    currentSentence += text[i];
+
+    if (i + 3 < text.length && text[i+1] === '.' && text[i+2] === '.' && text[i+3] === '.') {
+      if (currentSentence.trim() !== "") {
+        result.push(currentSentence.trim() + '...');
+      }
+      currentSentence = '';
+      i += 3;
+    } else if (i + 1 < text.length && (text[i+1] === '.' || text[i+1] === '?' || text[i+1] === '!')) {
+      if (currentSentence.trim() !== "") {
+        result.push(currentSentence.trim() + text[i+1]);
+      }
+      currentSentence = '';
+      i++;
+    }
+  }
+  if (currentSentence.trim() !== "") {
+    result.push(currentSentence);
+  }
+  return result;
+}
+
 function getCounts(paragraphs: string[]) {
-  // words
-  // characters
-  // sentences
-  //
+  const result = {
+    paragraphs: paragraphs.length,
+    sentences: 0,
+    words: 0,
+    characters: 0
+  };
+  for (const paragraph of paragraphs) {
+    const sentences = getSentences(paragraph);
+    result.sentences += sentences.length;
+    for (const sentence of sentences) {
+      const words = sentence.split(/\s/)
+      result.words += words.length;
+      for (const word of words) {
+        result.characters += word.length;
+      }
+    }
+  }
+  return result;
 }
 
 document.addEventListener('trix-initialize', function (event) {
@@ -42,9 +82,14 @@ document.addEventListener('trix-initialize', function (event) {
   const debouncedCalc = debounce(() => {
     const calcEl = document.getElementById('calc-container');
     if (calcEl) {
-      const paragraphs = new TagTide(trix.value).blocksToText();
-      calcEl.innerHTML = `Paragraphs: ${paragraphs.length}`;
-      getCounts(paragraphs);
+      const counts = getCounts(new TagTide(trix.value).blocksToText());
+      calcEl.innerHTML = `
+      Paragraphs: ${counts.paragraphs}<br>
+      Sentences: ${counts.sentences}<br>
+      Words: ${counts.words}<br>
+      Characters: ${counts.characters}
+      `;
+      console.log(counts);
     }
   }, 400);
 
